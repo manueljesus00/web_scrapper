@@ -1,20 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
-import urllib
+
 url = "https://www.directoalpaladar.com/categoria/postres/record/20"
-webpage=str(urllib.request.urlopen(url).read())
 counter = 0
 r = requests.get(url)
-code_status = r.status_code
+soup = BeautifulSoup(r.text,'lxml')
+articulos = soup.find_all('h2', {'class':'abstract-title'})
 
-if code_status == 200:
-    html = BeautifulSoup(webpage, features='html.parser')
-    entradas = html.find_all('article')
-    for item in entradas:
+if len(articulos) > 0:
+    for articulo in articulos:
         counter += 1
-        titulo = item.find('h2', {'class':'abstract-title'}).getText()
-        link = item.find('a').get('href')
-
+        link = articulo.find('a').get('href')
+        titulo = articulo.get_text()
         print("Id........: %d" % counter)
         print("Titulo....: " + titulo)
         print("Link......: " + link)
