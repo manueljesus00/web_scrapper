@@ -16,7 +16,7 @@ if code_status == 200:
         link = item.find('a').get('href')
 
         print("Id........: %d" % counter)
-        print("Titulo....: " + cor_titulo)
+        print("Titulo....: " + titulo)
         print("Link......: " + link)
         print("______________________________________")
 else:
